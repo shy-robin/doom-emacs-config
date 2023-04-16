@@ -124,3 +124,29 @@
 (evil-define-key 'treemacs treemacs-mode-map (kbd "ob") #'treemacs-visit-node-ace-vertical-split)
 (evil-define-key 'treemacs treemacs-mode-map (kbd "a") #'treemacs-create-file)
 (evil-define-key 'treemacs treemacs-mode-map (kbd "A") #'treemacs-create-dir)
+
+(setq centaur-tabs-set-close-button nil)
+(setq centaur-tabs-height 28)
+(setq centaur-tabs-show-new-tab-button nil)
+(setq centaur-tabs-set-bar 'under)
+(setq centaur-tabs-left-edge-margin nil)
+(setq x-underline-at-descent-line t)
+
+(map!
+ :desc "Previous tab"
+ :n "H" #'centaur-tabs-backward
+ :desc "Next tab"
+ :n "L" #'centaur-tabs-forward
+ :desc "Move tab to left"
+ :n "t h" #'centaur-tabs-move-current-tab-to-left
+ :desc "Move tab to right"
+ :n "t l" #'centaur-tabs-move-current-tab-to-right
+ :desc "New tab"
+ :n "t t" #'centaur-tabs--create-new-tab
+ :desc "Close current tab"
+ :n "t w" #'kill-this-buffer
+ :desc "Close other tabs"
+ :n "t o" #'centaur-tabs-kill-other-buffers-in-current-group
+ :desc "Ace jump tab"
+ :n "t j" #'centaur-tabs-ace-jump
+)
