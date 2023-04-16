@@ -96,3 +96,26 @@
 ;; 开启代码搜索中文功能（比如拼音，五笔码等）
 (pyim-isearch-mode 1)
 (global-set-key (kbd "C-M-SPC") 'toggle-input-method)
+
+;; 使用默认的彩色图标
+(setq doom-themes-treemacs-theme nil)
+(treemacs-resize-icons 18)
+(map! :leader
+      :desc "Treemacs"
+      "e" #'treemacs)
+
+(setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+
+(map! :leader
+      (:prefix ("w" . "Window")
+       :desc "Delete other windows"
+       "o" #'delete-other-windows
+       :desc "Split window below"
+       "b" #'split-window-below
+       :desc "Split window right"
+       "r" #'split-window-right
+       :desc "Select window"
+       "w" #'ace-select-window
+       :desc "Delete window"
+       "d" #'ace-delete-window
+       ))
