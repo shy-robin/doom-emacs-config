@@ -119,3 +119,8 @@
        :desc "Delete window"
        "d" #'ace-delete-window
        ))
+
+(evil-define-key 'treemacs treemacs-mode-map (kbd "or") #'treemacs-visit-node-ace-horizontal-split)
+(evil-define-key 'treemacs treemacs-mode-map (kbd "ob") #'treemacs-visit-node-ace-vertical-split)
+(evil-define-key 'treemacs treemacs-mode-map (kbd "a") #'treemacs-create-file)
+(evil-define-key 'treemacs treemacs-mode-map (kbd "A") #'treemacs-create-dir)
