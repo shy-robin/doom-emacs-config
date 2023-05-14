@@ -185,3 +185,8 @@
 
 (setq lsp-ui-sideline-show-hover t)
 (setq lsp-ui-sideline-show-code-actions t)
+
+(after! company
+  (map! :map company-active-map
+        "<tab>" nil
+        "TAB" #'company-complete-selection))
