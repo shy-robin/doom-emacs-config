@@ -124,7 +124,14 @@
        "w" #'ace-select-window
        :desc "Delete window"
        "d" #'ace-delete-window
-       ))
+       )
+      (:prefix ("f" . "File")
+        :desc "Format buffer"
+        "a" #'lsp-format-buffer
+        :desc "Format region"
+        "v" #'lsp-format-region
+      )
+      )
 
 (evil-define-key 'treemacs treemacs-mode-map (kbd "or") #'treemacs-visit-node-ace-horizontal-split)
 (evil-define-key 'treemacs treemacs-mode-map (kbd "ob") #'treemacs-visit-node-ace-vertical-split)
@@ -155,4 +162,21 @@
  :n "t o" #'centaur-tabs-kill-other-buffers-in-current-group
  :desc "Ace jump tab"
  :n "t j" #'centaur-tabs-ace-jump
+)
+
+(map!
+  :desc "Find type definition"
+  :n "g t" #'+lookup/type-definition
+  :desc "Next flycheck error"
+  :n "g n" #'flycheck-next-error
+  :desc "Previous flycheck error"
+  :n "g N" #'flycheck-previous-error
+  :desc "Next flycheck error"
+  :n "g j" #'flycheck-next-error
+  :desc "Previous flycheck error"
+  :n "g k" #'flycheck-previous-error
+  :desc "List flycheck errors"
+  :n "g l" #'+default/diagnostics
+  :desc "Show doc glance"
+  :n "g h" #'lsp-ui-doc-glance
 )
