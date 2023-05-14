@@ -179,4 +179,9 @@
   :n "g l" #'+default/diagnostics
   :desc "Show doc glance"
   :n "g h" #'lsp-ui-doc-glance
+  :desc "Peek find references"
+  :n "g r" #'lsp-ui-peek-find-references
 )
+
+(setq lsp-ui-sideline-show-hover t)
+(setq lsp-ui-sideline-show-code-actions t)
