@@ -216,3 +216,6 @@
 ;; Whether display the modal state icon.
 ;; Including `evil', `overwrite', `god', `ryo' and `xah-fly-keys', etc.
 (setq doom-modeline-modal-icon nil)
+
+(setq mac-option-modifier nil
+      mac-command-modifier 'meta)
