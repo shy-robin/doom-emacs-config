@@ -205,3 +205,13 @@
 
 (setq mac-option-modifier nil
       mac-command-modifier 'meta)
+
+(ispell-change-dictionary "en_US" t)
+
+(add-hook 'prog-mode-hook #'wucuo-start)
+(add-hook 'text-mode-hook #'wucuo-start)
+
+(setq ispell-program-name "aspell")
+;; You could add extra option "--camel-case" for camel case code spell checking if Aspell 0.60.8+ is installed
+;; @see https://github.com/redguardtoo/emacs.d/issues/796
+(setq ispell-extra-args '("--sug-mode=ultra" "--lang=en_US" "--run-together" "--run-together-limit=16" "--camel-case"))
