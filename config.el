@@ -89,20 +89,6 @@
 (key-chord-define evil-insert-state-map "jj" 'evil-normal-state)
 (key-chord-mode t)
 
-;; 加载 basedict 拼音词库。
-(pyim-basedict-enable)
-;; 将 Emacs 默认输入法设置为 pyim.
-(setq default-input-method "pyim")
-;; 显示 5 个候选词。
-(setq pyim-page-length 5)
-;; 金手指设置，可以将光标处的编码（比如：拼音字符串）转换为中文。
-(global-set-key (kbd "M-j") 'pyim-convert-string-at-point)
-;; 设置 pyim 默认使用的输入法策略，我使用全拼。
-(pyim-default-scheme 'quanpin)
-;; 开启代码搜索中文功能（比如拼音，五笔码等）
-(pyim-isearch-mode 1)
-(global-set-key (kbd "C-M-SPC") 'toggle-input-method)
-
 ;; 使用默认的彩色图标
 (setq doom-themes-treemacs-theme nil)
 (treemacs-resize-icons 18)
