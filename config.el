@@ -217,3 +217,6 @@
 (setq ispell-extra-args '("--sug-mode=ultra" "--lang=en_US" "--run-together" "--run-together-limit=16" "--camel-case"))
 
 (map! :i "C-h" "<backspace>")
+
+;; projectile discover projects in search path
+(setq projectile-project-search-path '("~/Projects/"))
