@@ -220,3 +220,8 @@
 
 ;; projectile discover projects in search path
 (setq projectile-project-search-path '("~/Projects/"))
+
+(map! :n "f" #'avy-goto-char
+      :o "f" #'avy-goto-char
+      :m "f" #'avy-goto-char
+      )
