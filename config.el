@@ -223,5 +223,9 @@
 
 (map! :n "f" #'avy-goto-char
       :o "f" #'avy-goto-char
-      :m "f" #'avy-goto-char
       )
+
+(after! doom-modeline
+  (setq doom-modeline-persp-name t))
+
+(setq +treemacs-git-mode 'deferred)
