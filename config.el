@@ -203,9 +203,6 @@
 ;; Including `evil', `overwrite', `god', `ryo' and `xah-fly-keys', etc.
 (setq doom-modeline-modal-icon nil)
 
-(setq mac-option-modifier nil
-      mac-command-modifier 'meta)
-
 (ispell-change-dictionary "en_US" t)
 
 (add-hook 'prog-mode-hook #'wucuo-start)
