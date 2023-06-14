@@ -90,8 +90,7 @@
 (key-chord-mode t)
 
 ;; 使用默认的彩色图标
-(setq doom-themes-treemacs-theme nil)
-(treemacs-resize-icons 18)
+(treemacs-resize-icons 16)
 (map! :leader
       :desc "Treemacs"
       "e" #'treemacs)
