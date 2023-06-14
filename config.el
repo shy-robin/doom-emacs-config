@@ -234,5 +234,18 @@
 ;; move text
 (define-key evil-visual-state-map (kbd "J") (concat ":m '>+1" (kbd "RET") "gv=gv"))
 (define-key evil-visual-state-map (kbd "K")   (concat ":m '<-2" (kbd "RET") "gv=gv"))
+
+(after! treemacs
+  (custom-set-faces!
+  `(treemacs-git-unmodified-face :foreground "#ABB2BF" :weight normal)
+  `(treemacs-git-added-face :foreground "#0EAA00" :weight normal)
+  `(treemacs-git-modified-face :foreground "#E5C07B" :weight normal)
+  `(treemacs-git-renamed-face :foreground "#C678DD" :weight normal)
+  `(treemacs-git-deleted-face :foreground "#E06C75" :weight normal)
+  `(treemacs-git-ignored-face :foreground "#4B5263" :weight normal)
+  `(treemacs-git-conflict-face :foreground "#FF0000" :weight normal)
+  `(treemacs-git-untracked-face :foreground "#0A7700" :weight normal))
+  )
+
 (use-package! rainbow-mode
   :hook (prog-mode . rainbow-mode))
