@@ -234,3 +234,5 @@
 ;; move text
 (define-key evil-visual-state-map (kbd "J") (concat ":m '>+1" (kbd "RET") "gv=gv"))
 (define-key evil-visual-state-map (kbd "K")   (concat ":m '<-2" (kbd "RET") "gv=gv"))
+(use-package! rainbow-mode
+  :hook (prog-mode . rainbow-mode))
