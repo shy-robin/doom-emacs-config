@@ -273,3 +273,16 @@
       "f n" #'my-save-file-no-formatting)
 
 (setq left-fringe-width 100)
+
+(advice-add 'json-parse-string :around
+            (lambda (orig string &rest rest)
+              (apply orig (s-replace "\\u0000" "" string)
+                     rest)))
+
+;; minor changes: saves excursion and uses search-forward instead of re-search-forward
+(advice-add 'json-parse-buffer :around
+            (lambda (oldfn &rest args)
+	      (save-excursion
+                (while (search-forward "\\u0000" nil t)
+                  (replace-match "" nil t)))
+		(apply oldfn args)))
