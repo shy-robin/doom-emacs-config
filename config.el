@@ -271,3 +271,5 @@
 (map! :leader
       :desc "Save file without formatting"
       "f n" #'my-save-file-no-formatting)
+
+(setq left-fringe-width 100)
