@@ -267,8 +267,6 @@
       :desc "Save file without formatting"
       "f n" #'my-save-file-no-formatting)
 
-(setq left-fringe-width 100)
-
 (advice-add 'json-parse-string :around
             (lambda (orig string &rest rest)
               (apply orig (s-replace "\\u0000" "" string)
