@@ -251,3 +251,23 @@
 
 (use-package! rainbow-mode
   :hook (prog-mode . rainbow-mode))
+
+(setq-hook! 'js-mode-hook +format-with-lsp nil)
+(setq-hook! 'js-mode-hook +format-with :none)
+(eval-after-load 'web-mode
+    '(progn
+       (add-hook 'web-mode-hook #'add-node-modules-path)
+       (add-hook 'web-mode-hook #'prettier-js-mode)))
+(eval-after-load 'typescript-mode
+    '(progn
+       (add-hook 'typescript-mode-hook #'add-node-modules-path)
+       (add-hook 'typescript-mode-hook #'prettier-js-mode)))
+
+(defun my-save-file-no-formatting ()
+  (interactive)
+  (let ((before-save-hook (remove 'prettier-js before-save-hook)))
+    (save-buffer)))
+
+(map! :leader
+      :desc "Save file without formatting"
+      "f n" #'my-save-file-no-formatting)
