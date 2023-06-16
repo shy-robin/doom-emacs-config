@@ -215,9 +215,6 @@
       :o "f" #'avy-goto-char
       )
 
-(after! doom-modeline
-  (setq doom-modeline-persp-name t))
-
 (setq +treemacs-git-mode 'deferred)
 
 ;; 删除不影响剪贴板
@@ -315,3 +312,8 @@
   ;; Turning it off ensures we have full control.
   (setq company-auto-commit-chars nil)
 )
+
+(after! doom-modeline
+  (setq auto-revert-check-vc-info t)
+  (setq doom-modeline-buffer-file-name-style "file-name")
+  )
