@@ -170,9 +170,6 @@
   :n "g r" #'lsp-ui-peek-find-references
 )
 
-(setq lsp-ui-sideline-show-hover t)
-(setq lsp-ui-sideline-show-code-actions t)
-
 (with-eval-after-load 'evil
   (scroll-on-jump-advice-add evil-undo)
   (scroll-on-jump-advice-add evil-redo)
