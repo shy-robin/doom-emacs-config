@@ -317,3 +317,6 @@
   (setq auto-revert-check-vc-info t)
   (setq doom-modeline-buffer-file-name-style "file-name")
   )
+
+(after! why-this
+  (global-why-this-mode))
