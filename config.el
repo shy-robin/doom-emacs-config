@@ -152,6 +152,7 @@
 )
 
 (map!
+  :map prog-mode-map
   :desc "Find type definition"
   :n "g t" #'+lookup/type-definition
   :desc "Next flycheck error"
@@ -169,6 +170,10 @@
   :desc "Peek find references"
   :n "g r" #'lsp-ui-peek-find-references
 )
+
+(map!
+  :map org-mode-map
+  :n "g l" #'org-down-element)
 
 (with-eval-after-load 'evil
   (scroll-on-jump-advice-add evil-undo)
