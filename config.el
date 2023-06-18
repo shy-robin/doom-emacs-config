@@ -327,3 +327,5 @@
       "g J" #'diff-hl-show-hunk-next
       "g K" #'diff-hl-show-hunk-previous
 )
+
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
