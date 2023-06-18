@@ -320,3 +320,10 @@
 
 (after! why-this
   (global-why-this-mode))
+
+(map! :leader
+      "g j" #'diff-hl-next-hunk
+      "g k" #'diff-hl-previous-hunk
+      "g J" #'diff-hl-show-hunk-next
+      "g K" #'diff-hl-show-hunk-previous
+)
