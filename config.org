@@ -1,3 +1,67 @@
+#+title: Org Config
+#+description: Org Mode Configurations In Doom Emacs
+#+author: Shy Robin
+
+* packages
+
+#+begin_src emacs-lisp :tangle packages.el
+(package! key-chord)
+
+(package! scroll-on-jump)
+
+(package! wucuo)
+
+(package! evil-snipe :disable t)
+
+(package! rainbow-mode)
+
+(package! prettier-js)
+
+(package! add-node-modules-path)
+
+(package! why-this)
+
+(package! org-bullets)
+#+end_src
+
+
+* configs
+#+begin_src emacs-lisp :tangle no
+;; Whenever you reconfigure a package, make sure to wrap your config in an
+;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
+;;
+;;   (after! PACKAGE
+;;     (setq x y))
+;;
+;; The exceptions to this rule:
+;;
+;;   - Setting file/directory variables (like `org-directory')
+;;   - Setting variables which explicitly tell you to set them before their
+;;     package is loaded (see 'C-h v VARIABLE' to look up their documentation).
+;;   - Setting doom variables (which start with 'doom-' or '+').
+;;
+;; Here are some additional functions/macros that will help you configure Doom.
+;;
+;; - `load!' for loading external *.el files relative to this one
+;; - `use-package!' for configuring packages
+;; - `after!' for running code after a package has loaded
+;; - `add-load-path!' for adding directories to the `load-path', relative to
+;;   this file. Emacs searches the `load-path' when you load packages with
+;;   `require' or `use-package'.
+;; - `map!' for binding new keys
+;;
+;; To get information about any of these functions/macros, move the cursor over
+;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
+;; This will open documentation for it, including demos of how they are used.
+;; Alternatively, use `C-h o' to look up a symbol (functions, variables, faces,
+;; etc).
+;;
+;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
+;; they are implemented.
+#+end_src
+
+** general
+#+begin_src emacs-lisp :tangle yes
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
 (setq user-full-name "Shy Robin"
@@ -17,7 +81,11 @@
 (map! :leader
     :desc "Save file without formatting"
     "f n" #'my-save-file-no-formatting)
+#+end_src
 
+** ui
+*** font
+#+begin_src emacs-lisp :tangle yes
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
 ;; - `doom-font' -- the primary font to use
@@ -42,18 +110,27 @@
 
 ;; treemacs font
 (setq doom-variable-pitch-font (font-spec :family "SauceCodePro Nerd Font" :size 15))
+#+end_src
 
+*** theme
+#+begin_src emacs-lisp :tangle yes
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 
 (setq doom-theme 'doom-vibrant)
+#+end_src
 
+*** line-number
+#+begin_src emacs-lisp :tangle yes
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 
 (setq display-line-numbers-type 'relative)
+#+end_src
 
+*** window
+#+begin_src emacs-lisp :tangle yes
 ;; 最大化窗口
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 ;; 移除顶部标题栏
@@ -73,7 +150,10 @@
         "d" #'ace-delete-window
     )
 )
+#+end_src
 
+** org-mode
+#+begin_src emacs-lisp :tangle yes
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 
@@ -83,14 +163,20 @@
     :map org-mode-map
     :n "g l" #'org-down-element
 )
+#+end_src
 
+** key-chord
+#+begin_src emacs-lisp :tangle yes
 ;;Exit insert mode by pressing j and then j quickly
 (after! key-chord
     (setq key-chord-two-keys-delay 0.5)
     (key-chord-define evil-insert-state-map "jj" 'evil-normal-state)
     (key-chord-mode t)
 )
+#+end_src
 
+** treemacs
+#+begin_src emacs-lisp :tangle yes
 (after! treemacs
     ;; 使用默认的彩色图标
     (setq doom-themes-treemacs-config
@@ -116,11 +202,17 @@
     :desc "Treemacs"
     "e" #'treemacs
 )
+#+end_src
 
+** ace-windows
+#+begin_src emacs-lisp :tangle yes
 (after! ace-window
     (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
 )
+#+end_src
 
+** format
+#+begin_src emacs-lisp :tangle yes
 (map! :leader
     (:prefix ("f" . "File")
         :desc "Format buffer"
@@ -129,7 +221,10 @@
         "v" #'lsp-format-region
     )
 )
+#+end_src
 
+** tabs
+#+begin_src emacs-lisp :tangle yes
 (after! centaur-tabs
     (setq centaur-tabs-set-close-button nil)
     (setq centaur-tabs-height 28)
@@ -157,7 +252,10 @@
         :n "t j" #'centaur-tabs-ace-jump
     )
 )
+#+end_src
 
+** flycheck
+#+begin_src emacs-lisp :tangle yes
 (map!
     :map prog-mode-map
     :desc "Find type definition"
@@ -173,14 +271,20 @@
     :desc "List flycheck errors"
     :n "g l" #'+default/diagnostics
 )
+#+end_src
 
+** lsp
+#+begin_src emacs-lisp :tangle yes
 (map!
     :desc "Show doc glance"
     :n "g h" #'lsp-ui-doc-glance
     :desc "Peek find references"
     :n "g r" #'lsp-ui-peek-find-references
 )
+#+end_src
 
+** scroll-on-jump
+#+begin_src emacs-lisp :tangle yes
 (after! scroll-on-jump
     (with-eval-after-load 'evil
         (scroll-on-jump-advice-add evil-undo)
@@ -203,7 +307,10 @@
         (scroll-on-jump-with-scroll-advice-add evil-scroll-line-to-bottom)
     )
 )
+#+end_src
 
+** doom-modeline
+#+begin_src emacs-lisp :tangle yes
 (after! doom-modeline
     (setq doom-modeline-vcs-max-length 20)
     ;; Whether display the modal state icon.
@@ -212,7 +319,10 @@
     (setq auto-revert-check-vc-info t)
     (setq doom-modeline-buffer-file-name-style "file-name")
 )
+#+end_src
 
+** ispell
+#+begin_src emacs-lisp :tangle yes
 (ispell-change-dictionary "en_US" t)
 
 (add-hook 'prog-mode-hook #'wucuo-start)
@@ -222,17 +332,29 @@
 ;; You could add extra option "--camel-case" for camel case code spell checking if Aspell 0.60.8+ is installed
 ;; @see https://github.com/redguardtoo/emacs.d/issues/796
 (setq ispell-extra-args '("--sug-mode=ultra" "--lang=en_US" "--run-together" "--run-together-limit=16" "--camel-case"))
+#+end_src
 
+** projectile
+#+begin_src emacs-lisp :tangle yes
 ;; projectile discover projects in search path
 (setq projectile-project-search-path '("~/Projects/"))
+#+end_src
 
+** avy
+#+begin_src emacs-lisp :tangle yes
 (map! :n "f" #'avy-goto-char
       :o "f" #'avy-goto-char
 )
+#+end_src
 
+** rainbow-mode
+#+begin_src emacs-lisp :tangle yes
 (use-package! rainbow-mode
   :hook (prog-mode . rainbow-mode))
+#+end_src
 
+** prettier-js
+#+begin_src emacs-lisp :tangle yes
 (setq-hook! 'js-mode-hook +format-with-lsp nil)
 (setq-hook! 'js-mode-hook +format-with :none)
 (eval-after-load 'web-mode
@@ -248,7 +370,10 @@
     (interactive)
     (let ((before-save-hook (remove 'prettier-js before-save-hook)))
     (save-buffer)))
+#+end_src
 
+** company
+#+begin_src emacs-lisp :tangle yes
 ;; fix: complete objects error
 (advice-add 'json-parse-string :around
     (lambda (orig string &rest rest)
@@ -301,10 +426,16 @@
     ;; Turning it off ensures we have full control.
     (setq company-auto-commit-chars nil)
 )
+#+end_src
 
+** why-this
+#+begin_src emacs-lisp :tangle yes
 (after! why-this
     (global-why-this-mode))
+#+end_src
 
+** diff-hl
+#+begin_src emacs-lisp :tangle yes
 (after! diff-hl
     (map! :leader
         "g j" #'diff-hl-next-hunk
@@ -313,5 +444,9 @@
         "g K" #'diff-hl-show-hunk-previous
     )
 )
+#+end_src
 
+** org-bullets
+#+begin_src emacs-lisp :tangle yes
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+#+end_src
