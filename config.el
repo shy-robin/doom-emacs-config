@@ -133,7 +133,7 @@
 
 (after! centaur-tabs
     (setq centaur-tabs-set-close-button nil)
-    (setq centaur-tabs-height 28)
+    (setq centaur-tabs-height 25)
     (setq centaur-tabs-show-new-tab-button nil)
     (setq centaur-tabs-set-bar 'under)
     (setq centaur-tabs-left-edge-margin nil)
