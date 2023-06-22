@@ -430,8 +430,7 @@
 
 ** why-this
 #+begin_src emacs-lisp :tangle yes
-(after! why-this
-    (global-why-this-mode))
+(global-why-this-mode)
 #+end_src
 
 ** diff-hl

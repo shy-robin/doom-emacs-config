@@ -302,8 +302,7 @@
     (setq company-auto-commit-chars nil)
 )
 
-(after! why-this
-    (global-why-this-mode))
+(global-why-this-mode)
 
 (after! diff-hl
     (map! :leader
