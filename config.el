@@ -2,6 +2,7 @@
 ;; clients, file templates and snippets. It is optional.
 (setq user-full-name "Shy Robin"
       user-mail-address "shy_robin@163.com")
+(setq all-the-icons-scale-factor 1)
 
 (map! :i "C-h" "<backspace>")
 
@@ -205,12 +206,15 @@
 )
 
 (after! doom-modeline
-    (setq doom-modeline-vcs-max-length 20)
+    (setq doom-modeline-vcs-max-length 999)
     ;; Whether display the modal state icon.
     ;; Including `evil', `overwrite', `god', `ryo' and `xah-fly-keys', etc.
     (setq doom-modeline-modal-icon nil)
     (setq auto-revert-check-vc-info t)
     (setq doom-modeline-buffer-file-name-style "file-name")
+    (setq doom-modeline-height 1)
+    (set-face-attribute 'mode-line nil :height 150)
+    (set-face-attribute 'mode-line-inactive nil :height 150)
 )
 
 (ispell-change-dictionary "en_US" t)
