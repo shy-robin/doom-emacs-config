@@ -182,6 +182,8 @@
     :n "g r" #'lsp-ui-peek-find-references
 )
 
+(setq +lsp-company-backends '(:separate company-yasnippet company-capf))
+
 (after! scroll-on-jump
     (with-eval-after-load 'evil
         (scroll-on-jump-advice-add evil-undo)

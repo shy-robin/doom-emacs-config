@@ -282,6 +282,8 @@
     :desc "Peek find references"
     :n "g r" #'lsp-ui-peek-find-references
 )
+
+(setq +lsp-company-backends '(:separate company-yasnippet company-capf))
 #+end_src
 
 ** scroll-on-jump
