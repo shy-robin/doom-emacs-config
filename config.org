@@ -466,3 +466,23 @@
 #+begin_src emacs-lisp :tangle no
 (global-blamer-mode 1)
 #+end_src
+
+** evil-multiedit
+#+begin_src emacs-lisp :tangle yes
+(map!
+    :n "C-n" #'evil-multiedit-match-and-next
+    :v "C-n" #'evil-multiedit-match-and-next
+)
+(map!
+    :map evil-multiedit-mode-map
+    :n "C-n" nil
+    :n "C-p" nil
+    :n "R" #'evil-multiedit-match-all
+    :n "C-j" #'evil-multiedit-next
+    :n "C-k" #'evil-multiedit-prev
+    :i "C-j" #'evil-multiedit-next
+    :i "C-k" #'evil-multiedit-prev
+)
+#+end_src
+
+#+RESULTS:

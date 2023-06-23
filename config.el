@@ -320,3 +320,18 @@
 )
 
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+
+(map!
+    :n "C-n" #'evil-multiedit-match-and-next
+    :v "C-n" #'evil-multiedit-match-and-next
+)
+(map!
+    :map evil-multiedit-mode-map
+    :n "C-n" nil
+    :n "C-p" nil
+    :n "R" #'evil-multiedit-match-all
+    :n "C-j" #'evil-multiedit-next
+    :n "C-k" #'evil-multiedit-prev
+    :i "C-j" #'evil-multiedit-next
+    :i "C-k" #'evil-multiedit-prev
+)
