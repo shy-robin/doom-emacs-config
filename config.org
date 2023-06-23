@@ -23,7 +23,7 @@
 
 (package! org-bullets)
 
-(package! blamer)
+;; (package! blamer)
 #+end_src
 
 
@@ -463,6 +463,6 @@
 #+end_src
 
 ** blamer
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp :tangle no
 (global-blamer-mode 1)
 #+end_src
