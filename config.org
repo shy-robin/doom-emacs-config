@@ -109,10 +109,12 @@
 ;; refresh your font settings. If Emacs still can't find your font, it likely
 ;; wasn't installed correctly. Font issues are rarely Doom issues!
 
-(setq doom-font (font-spec :family "SauceCodePro Nerd Font" :size 15))
+;; (setq doom-font (font-spec :family "SauceCodePro Nerd Font" :size 15))
+(setq doom-font (font-spec :family "IntelOne Mono" :size 15))
 
 ;; treemacs font
-(setq doom-variable-pitch-font (font-spec :family "SauceCodePro Nerd Font" :size 15))
+;; (setq doom-variable-pitch-font (font-spec :family "SauceCodePro Nerd Font" :size 15))
+(setq doom-variable-pitch-font (font-spec :family "IntelOne Mono" :size 15))
 #+end_src
 
 *** theme
