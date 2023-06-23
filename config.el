@@ -221,6 +221,10 @@
     (set-face-attribute 'mode-line-inactive nil :height 150)
 )
 
+;; ispell 是 Emacs 的内置拼写检查工具。
+;; flyspell 是 Emacs 的一个模块，用于实时拼写检查。它会在你输入文本时自动进行拼写检查，并标记出可能的拼写错误。
+;; aspell 是一个独立的拼写检查工具，与 Emacs 配合使用。它提供了更强大和灵活的拼写检查功能，支持多种语言和自定义字典。在 Doom Emacs 中，aspell 通常被用作 flyspell 的后端引擎，提供了更准确的拼写检查和更丰富的字典。
+
 (ispell-change-dictionary "en_US" t)
 
 (add-hook 'prog-mode-hook #'wucuo-start)
@@ -230,6 +234,9 @@
 ;; You could add extra option "--camel-case" for camel case code spell checking if Aspell 0.60.8+ is installed
 ;; @see https://github.com/redguardtoo/emacs.d/issues/796
 (setq ispell-extra-args '("--sug-mode=ultra" "--lang=en_US" "--run-together" "--run-together-limit=16" "--camel-case"))
+
+(after! ispell
+  (setq ispell-personal-dictionary "~/.config/doom/.spell/my-words"))
 
 ;; projectile discover projects in search path
 (setq projectile-project-search-path '("~/Projects/"))
