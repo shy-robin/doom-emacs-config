@@ -485,4 +485,9 @@
 )
 #+end_src
 
-#+RESULTS:
+** web-mode
+#+begin_src emacs-lisp :tangle yes
+(setq web-mode-part-padding 0)
+(setq web-mode-style-padding 0)
+(setq web-mode-script-padding 0)
+#+end_src

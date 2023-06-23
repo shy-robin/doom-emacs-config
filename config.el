@@ -335,3 +335,7 @@
     :i "C-j" #'evil-multiedit-next
     :i "C-k" #'evil-multiedit-prev
 )
+
+(setq web-mode-part-padding 0)
+(setq web-mode-style-padding 0)
+(setq web-mode-script-padding 0)
