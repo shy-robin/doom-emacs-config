@@ -12,6 +12,8 @@
 
 (package! add-node-modules-path)
 
-(package! why-this)
+;; (package! why-this)
 
 (package! org-bullets)
+
+(package! blamer)

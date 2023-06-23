@@ -308,8 +308,6 @@
     (setq company-auto-commit-chars nil)
 )
 
-(global-why-this-mode)
-
 (after! diff-hl
     (map! :leader
         "g j" #'diff-hl-next-hunk
@@ -320,3 +318,5 @@
 )
 
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+
+(global-blamer-mode 1)

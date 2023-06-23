@@ -19,9 +19,11 @@
 
 (package! add-node-modules-path)
 
-(package! why-this)
+;; (package! why-this)
 
 (package! org-bullets)
+
+(package! blamer)
 #+end_src
 
 
@@ -435,8 +437,10 @@
 #+end_src
 
 ** why-this
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp :tangle no
 (global-why-this-mode)
+(setq why-this-annotate-enable-heat-map nil)
+(setq why-this-enable-tooltip nil)
 #+end_src
 
 ** diff-hl
@@ -454,4 +458,9 @@
 ** org-bullets
 #+begin_src emacs-lisp :tangle yes
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+#+end_src
+
+** blamer
+#+begin_src emacs-lisp :tangle yes
+(global-blamer-mode 1)
 #+end_src
