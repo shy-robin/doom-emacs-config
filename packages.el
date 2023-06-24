@@ -1,6 +1,6 @@
 (package! key-chord)
 
-(package! scroll-on-jump)
+;; (package! scroll-on-jump)
 
 (package! wucuo)
 

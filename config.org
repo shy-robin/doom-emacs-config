@@ -7,7 +7,7 @@
 #+begin_src emacs-lisp :tangle packages.el
 (package! key-chord)
 
-(package! scroll-on-jump)
+;; (package! scroll-on-jump)
 
 (package! wucuo)
 
@@ -163,6 +163,12 @@
 ;; change `org-directory'. It must be set before org loads!
 
 (setq org-directory "~/org/")
+(setq org-log-done 'note)
+(setq org-log-into-drawer t)
+(setq org-todo-keywords
+      '((sequence "TODO(t!)" "|" "DONE(d@)")
+        (sequence "REPORT(r!)" "BUG(b!)" "KNOWNCAUSE(k!)" "|" "FIXED(f@)")))
+;; (setq org-tag-alist '(("shy1" . ?s) ("robin1" . ?r)))
 
 (map!
     :map org-mode-map
@@ -298,7 +304,7 @@
 #+end_src
 
 ** scroll-on-jump
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp :tangle no
 (after! scroll-on-jump
     (with-eval-after-load 'evil
         (scroll-on-jump-advice-add evil-undo)
