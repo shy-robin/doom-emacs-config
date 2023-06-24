@@ -1,7 +1,9 @@
-personal_ws-1.1 en 12 
+personal_ws-1.1 en 14 
 Config
+TODO
 avy
 configs
+emacs
 flycheck
 js
 lsp
