@@ -185,6 +185,8 @@
 )
 
 (setq +lsp-company-backends '(:separate company-yasnippet company-capf))
+(setq lsp-lens-enable nil)
+;; (setq lsp-eldoc-enable-hover nil)
 
 (after! scroll-on-jump
     (with-eval-after-load 'evil

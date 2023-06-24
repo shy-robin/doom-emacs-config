@@ -288,6 +288,8 @@
 )
 
 (setq +lsp-company-backends '(:separate company-yasnippet company-capf))
+(setq lsp-lens-enable nil)
+;; (setq lsp-eldoc-enable-hover nil)
 #+end_src
 
 ** scroll-on-jump
