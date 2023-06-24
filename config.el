@@ -85,6 +85,11 @@
 (map!
     :map org-mode-map
     :n "g l" #'org-down-element
+    :n "g h" #'org-up-element
+    :n "g j" #'org-next-visible-heading
+    :n "g k" #'org-previous-visible-heading
+    :n "g J" #'org-forward-element
+    :n "g K" #'org-backward-element
 )
 
 ;;Exit insert mode by pressing j and then j quickly
