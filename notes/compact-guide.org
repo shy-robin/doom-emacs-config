@@ -1,0 +1,433 @@
+#+title: Org Mode Compact Guide
+#+description: 参考：https://orgmode.org/guide/
+#+author: Shy Robin
+#+startup: overview
+#+TAGS: [ Group : @work @home @tennisclub ]
+#+TAGS: laptop(l) car(c) pc(p) sailboat(s)
+
+* 文档结构
+** 标题
+使用星号加空格编写标题；
+使用 *org-bullets* 插件设置标题符号的样式；
+*** Footnotes
+**** test
+使用 =M-x: org-footnot-section= 查看变量（默认为 "Footnotes" ），以该变量为标题的内容将在导出时被忽略。
+
+* 显示隐藏
+** Tab
+控制当前子树下的内容的显示和隐藏。
+** Shift + Tab
+控制所有子树内容的显示和隐藏。
+** 文件打开时的显示状态
+通过设置 =org-startup-folded= 变量或者在 org 文件开头设置 =#+starup:= 控制 org 文件打开时内容的状态。
+可取值：
+- overview
+- content
+- showall
+- showeverything
+- show<n>levels
+
+设置完成之后使用 =M-x: revert-buffer= 或者使用快捷键 =SPC-b-r= 重新加载缓冲区，即可生效。
+* 移动
+** g j
+移动到下一个可见标题。
+** g k
+移动到上一个可见标题。
+** g J
+移动到下一个同级标题。
+** g K
+移动到上一个同级标题。
+** g l
+移动到内部的标题。
+** g h
+移动到外部的标题。
+* 结构编辑
+** C-RET
+创建一个同级标题（如果在 normal 模式则会自动进入 insert 模式）。
+** C-S-RET
+向上创建一个同级标题。
+** M-RET
+创建一个同级标题（保持原有的模式）。
+** M-S-RET
+创建一个同级的 TODO 标题。
+** TAB
+在 insert 模式下可以向下切换标题的层级。
+** S-TAB
+在   insert 模式下可以向上切换标题的层级。
+** M-h/l/arrow-left/arrow-right
+切换标题的层级。
+** M-j/k/arrow-up/arrow-down
+上下移动标题（不会超出父级标题）。
+** M-S-j/k/arrow-up/arrow-down
+上下移动标题（可以超出父级标题）。
+** SPC-m-s-r
+传送标题到任意位置。
+** SPC-m-s-n
+缩小标题（仅展示该标题以下的内容）。
+** SPC-m-s-N
+放大标题（还原，显示所有的内容）。
+* 稀疏树（Sparse Tree)
+在 Org mode 中，Sparse Tree（稀疏树）是一种功能强大的搜索和筛选工具，可以帮助你快速定位和展示与特定条件相匹配的部分内容。Sparse Tree 可以在当前 Org 文件中创建一个新的缩小的视图，只显示与指定条件匹配的部分，而隐藏其他内容。
+** SPC-m-s-s
+org-sparse-tree
+* 普通列表
+** 列表类型
+*** 无序列表
+以 - + * 开头。
+- list1
+  * item1
+  * item2
+- list2
+  + item1
+  + item2
+*** 有序列表
+以 1. 1) 开头。
+1. list1
+2. list2
+   1. item1
+   2. item2
+*** 描述列表
+用 :: 分隔列表名称和描述信息
+- list1 :: this is list1
+- list2 :: this is list2
+** 快捷键
+*** M-S-RET
+创建一个 checkbox 类型的子项。
+- list1
+- [ ] list2
+- [ ] list3
+*** M-j/k/arrow-up/arrow-down
+上下移动项（不能超出父级范围）。
+*** M-S-j/k/arrow-up/arrow-down
+上下移动项（可以超出父级范围）。
+*** M-h/l/arrow-left/arrow-right
+左右移动项（不会影响子项）。
+*** M-S-h/l/arrow-left/arrow-right
+左右移动项（会影响子项）。
+*** C-c C-c
+如果是 checkbox 则会切换它的状态，或者在 checkbox 的方框上按下 RET 键也能切换状态。
+*** C-c -
+切换列表符号。
+* 表格
+** 创建表格
+输入 =|field1|field2= ，然后按下 C-c RET 即可快速创建一个带有分隔符的表格。如下：
+| field1 | field2 |
+|--------+--------|
+|        |        |
+** 快速创建分隔符
+输入 |- ，按下 TAB 键便可快速生成一行分隔符。
+|---|
+|   |
+** 快速创建表格
+- SPC-m-b-c
+- C-c |
+| name | gender | age |
+|------+--------+-----|
+| Amy  | male   |  18 |
+| Tom  | female |  20 |
+| Jack | male   |  22 |
+** 对齐表格
+当输入表格内容时，按下以下键便可以重新对齐表格：
+- TAB
+- S-TAB
+- RET
+- C-c C-c
+** 单元格移动
+C-S-h/j/k/l
+| name  | gender | age    |
+|-------+--------+--------|
+| Tom   |     10 | male   |
+| Tom   |     11 | female |
+| Tom   |     12 | male   |
+|-------+--------+--------|
+| Jerry |   male | 21     |
+** 行和列移动
+*** M-h/l
+左右移动列。
+*** M-j/k
+上下移动行。
+*** M-S-h/l
+删除或增加列。
+*** M-S-k/j
+删除或增加行。
+*** C-c -
+增加一行分隔符。
+*** C-c RET
+增加一行分隔符并插入一行。
+*** SPC-m-s-S
+对光标所在列重新排序。
+* 超链接
+** 格式
+- =[[LINK][DESCRIPTION]]=
+- =[[LINK]]=
+** 编辑链接或快速创建链接
+一旦创建链接，org mode 会自动将链接渲染成特定的格式。如果要编辑链接的内容，可通过以下两种方式：
+- SPC-m-l-l
+- C-c C-l
+[[github:shy-robin][My Github repo]]
+
+另外，如果没有链接使用以上两种方式会快速创建链接。
+** 内部链接
+如果 LINK 不是 URL，则会在当前文件里查找可以匹配 LINK 的标题。
+[[格式][Find Target]]
+[[Demo][Demo]]
+
+*** Demo
+** 外部链接
+支持多种不同格式的外部链接。
+- [[https://www.baidu.com][百度]]
+- [[file:~/Pictures/duck.png][可达鸭的图片]]
+- [[file:demo.org::12][demo.org第十二行]]
+** 操作链接
+*** SPC-m-l-l
+快速创建或编辑链接。
+*** C-c C-o / RET
+打开链接。
+*** C-c &
+回到链接的位置(仅对内部链接有效)。
+*** SPC-n-l
+存储当前位置到一个新的链接。
+将当前位置记录到一个链接中，该链接会出现在创建链接的提示窗中，当选择链接后，会自动将它从提示窗中移除，相当于只使用一次。
+* 待办事项
+** 基础功能
+任何以 TODO 开头的标题都会被自动识别为待办事项。
+*** 快速设置标题状态
+使用 SPC-m-t 可以快速设置标题的状态。
+**** TODO Learn Emacs
+*** 快速切换标题状态
+使用 C-S-h/l 可以快速设置标题的状态。
+**** NO Do someting
+*** 查看所有待办事项
+使用 SPC-m-s-s t 即可查看所有 TODO 的稀疏树。
+*** 快速创建同级待办
+使用 M-S-RET 可以快速创建同级的待办事项。
+** 多状态工作流
+我们可以使用 TODO 关键字声明一个连续的工作状态：
+
+#+begin_src emacs-lisp
+(setq org-todo-keywords
+      '((sequence "TODO" "FEEDBACK" "VERIFY" "|" "DONE" "DELEGATED")))
+#+end_src
+
+以 | 分隔开两种结果状态，左边的表示正在进行中的状态，右边的表示结束的状态。
+
+如果不想修改原有的 TODO 状态，可以新建一个状态集：
+
+#+begin_src emacs-lisp :tangle yes
+(setq org-todo-keywords
+      '((sequence "TODO(t)" "|" "DONE(d)")
+        (sequence "REPORT(r)" "BUG(b)" "KNOWNCAUSE(k)" "|" "FIXED(f)")))
+#+end_src
+
+如果不想修改通用的设置，可以针对当前文件进行配置：
+#+begin_src emacs-lisp :tangle yes
+#+TODO: TODO(t) | DONE(d)
+#+TODO: REPORT(r) BUG(b) KNOWNCAUSE(k) | FIXED(f)
+#+TODO: | CANCELED(c)
+#+end_src
+** 日志
+*** timestamp
+#+begin_src emacs-lisp :tangle yes
+(setq org-log-done 'time)
+#+end_src
+
+当待办事项完成后会记录完成的时间。
+
+也可以使用 =#+starup: logdone= 针对单个文件进行记录。
+
+**** DONE test
+CLOSED: [2023-06-24 Sat 22:27]
+
+*** note
+#+begin_src emacs-lisp :tangle yes
+(setq org-log-done 'note)
+#+end_src
+
+当待办事项完成后会记录完成的时间以及相应的笔记。
+
+**** TODO test
+- CLOSING NOTE [2023-06-24 Sat 22:11] \\
+  hello world2
+- CLOSING NOTE [2023-06-24 Sat 22:11] \\
+  hello world
+
+*** log-into-drawer
+当记录的 note 过多时，会导致日志过长，不便于阅读。
+设置 =org-log-into-drawer= 变量会使所有 log 信息折叠到 LOGBOOK 区域内，可以使用 TAB 展开或收缩 log 信息。
+同样，也可以设置 =#+startup: logdrawer= 针对单个文件进行配置。
+
+**** DONE test
+CLOSED: [2023-06-24 Sat 22:32]
+:LOGBOOK:
+- CLOSING NOTE [2023-06-24 Sat 22:32] \\
+  very good
+:END:
+
+*** special marker
+我们可以给每种状态设置不同的日志类型，这里有两种特殊的标记符号:
+- ! 代表 timestamp
+- @ 代表 note
+
+可以在文件开头设置：
+#+begin_src emacs-lisp :tangle yes
+#+TODO: TODO(t) WAIT(w@/!) | DONE(d!) CANCELED(c@)
+#+end_src
+
+同样可以在 org-todo-keywords 变量中设置。
+#+begin_src emacs-lisp :tangle yes
+(setq org-todo-keywords
+      '((sequence "TODO(t!)" "|" "DONE(d@)")
+        (sequence "REPORT(r!)" "BUG(b!)" "KNOWNCAUSE(k!)" "|" "FIXED(f@)")))
+#+end_src
+
+**** DONE test
+CLOSED: [2023-06-24 Sat 22:34]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2023-06-24 Sat 22:34] \\
+  so good
+- State "TODO"       from              [2023-06-24 Sat 22:34]
+:END:
+
+** 优先级
+TODO 事项有 A-C 三个优先级：
+- A（高优）
+- B（默认）
+- C（低优）
+
+*** SPC-m-p-p
+设置优先级。
+*** SPC-m-p-u
+增加优先级。
+*** SPC-m-p-d
+降低优先级。
+
+**** TODO [#A] test
+** 拆分子任务
+当任务工作量很大的时候，拆分成多个更小的子任务通常是一种合理的办法。
+在任何地方插入 [/] 和 [%] 可以显示当前待办的进度。
+
+*** 组织一次活动 [33%]
+**** TODO 叫人 [1/4]
+***** DONE 小明
+CLOSED: [2023-06-24 六 22:59]
+:LOGBOOK:
+- CLOSING NOTE [2023-06-24 六 22:59] \\
+  yes
+:END:
+
+***** TODO 小明
+***** TODO 小明
+***** TODO 小明
+**** TODO 买东西 [50%]
+***** DONE 水果
+CLOSED: [2023-06-24 六 23:00]
+:LOGBOOK:
+- CLOSING NOTE [2023-06-24 六 23:00] \\
+  yes
+:END:
+
+***** TODO 水果
+***** TODO 水果
+***** DONE 水果
+CLOSED: [2023-06-24 六 23:00]
+:LOGBOOK:
+- CLOSING NOTE [2023-06-24 六 23:00] \\
+  yes
+:END:
+**** DONE someting
+CLOSED: [2023-06-24 六 23:01]
+:LOGBOOK:
+- CLOSING NOTE [2023-06-24 六 23:01] \\
+  yes
+:END:
+** 复选框
+[[*普通列表][普通列表]]里的每个子项都可以变成复选框（通过在列表符号后插入 [ ] 实现）。
+复选框不会包含在全局的待办事项中，所以它更适合将一个任务细分成更简单的步骤。
+
+*** C-c C-c
+切换复选框的状态。
+
+*** M-S-RET
+新建一个复选框（只对普通列表生效）。
+
+*** TODO Organize party [2/2]
+- [X] call people
+  1. [X] Peter
+  2. [X] Tom
+  3. [X] Jerry
+- [X] order food
+
+* 标签
+所有标题都可以带上标签。
+标签需要通过两个 : 包裹。
+标签名称由字母、数字、下划线和 @ 组成。
+一个标题可以有多个标签，通过 : 分隔。
+** 标签的继承
+子标题会自动继承父标题的标签，不需要显示声明。
+如果要让当前文件的所有标题都继承某些标签，可以在文件开头进行设置：
+#+begin_src emacs-lisp :tangle yes
+#+FILETAGS: :Peter:Boss:Secret:
+#+end_src
+
+*** My weekend :myself:
+**** do housework :chore:
+**** learn emacs :study:
+** 设置标签
+*** SPC-m-q / C-c C-q
+如果当前光标所在行不是标题，则会给父标题加标签。
+*** C-c C-c
+该命令只针对标题有效。
+*** #-TAGS:
+前两种方式设置标签会唤起弹窗，弹窗里有一个标签列表，里面的标签都是在当前 buffer 里设置的。
+如果 buffer 里没有设置标签，那么显示的就是一个空列表，我们可以在文件开头声明一些预制的标签：
+#+begin_src emacs-lisp :tangle yes
+#+TAGS: @work @home @tennisclub
+#+TAGS: laptop car pc sailboat
+#+end_src
+
+**** 快捷键
+以上方式唤起的面板，需要用补全来选中标签。可以给标签设置唯一的字符，用快捷键来选择标签：
+#+begin_src emacs-lisp :tangle yes
+#+TAGS: @work(w) @home(h) @tennisclub(t)
+#+TAGS: laptop(l) car(c) pc(p) sailboat(s)
+#+end_src
+
+通过 SPC-m-q 唤起面板后，可以发现只需要通过设置的快捷键就可以快速选择标签。
+按下 TAB 键可以切换回之前的面板，用补全的方法来选择标签。
+按下 SPC 键清空所有标签。
+选择完成之后，按下 RET 键就可以确认并退出面板。
+*** org-tag-alist
+以上三种方式都只能针对当前的 buffer 生效，如果要添加全局标签，可以通过设置 org-tag-alist 变量：
+#+begin_src emacs-lisp :tangle yes
+(setq org-tag-alist '(("tag1") ("tag2")))
+#+end_src
+
+同样，也可以设置快捷键：
+#+begin_src emacs-lisp :tangle yes
+(setq org-tag-alist '(("tag1" . ?t) ("tag2" . ?T)))
+#+end_src
+
+** 标签组
+通过以下两种方式设置一个标签组:
+#+begin_src emacs-lisp :tangle yes
+;; 1. [ 组标签 : 关联的标签（可以重复） ]
+#+TAGS: [ GTD : Control Persp ]
+
+;; 2. { 组标签 : 相互排斥的标签 }
+#+TAGS: { Context : @Home @Work }
+#+end_src
+
+当搜索标签时，如果搜索的是组标签名称，则会显示该组下的所有标签。
+可以通过执行 org-toggle-tags-group 命令暂时关闭这个功能。
+** 搜索标签
+*** SPC-m-s-s m
+创建一个稀疏树，返回所有能够匹配标签的标题。
+*** SPC-o-A m
+*** SPC-o-A M
+
+** test :test:demo:
+** test2
+*** test3 :@work:
+*** test4
+*** test5
+**** test6 :@tennisclub:
