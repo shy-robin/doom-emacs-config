@@ -431,3 +431,29 @@ CLOSED: [2023-06-24 六 23:01]
 *** test4
 *** test5
 **** test6 :@tennisclub:
+* 属性
+** 基本功能
+- 每个标题可以有多个不同的属性，用于描述该部分的内容。
+- 属性由两个冒号包裹，后面跟着属性的值，形式： =:key: value= 。
+- 和标签不同的是，属性是一种 key: value 的数据格式，而标签只是一种类似数组的数据格式。
+- 子元素会继承父元素的属性。
+** 创建属性
+创建属性快捷键：SPC-m-o
+同样，可以在文件开头声明属性，这些属性将会被所有入口继承，例如：
+#+begin_src emacs-lisp :tangle yes
+#+PROPERTY: NDisks_ALL 1 2 3 4
+#+end_src
+** 稀疏树
+通过 SPC-m-s-s p ， 可以通过属性创建稀疏树。
+
+** GroupA
+:PROPERTIES:
+:CATEGORY: animal pet
+:END:
+*** Cat
+*** Dog
+** GroupB
+:PROPERTIES:
+:CATEGORY: fruit
+:END:
+*** apple
