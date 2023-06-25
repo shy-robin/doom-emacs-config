@@ -212,7 +212,11 @@
         `(treemacs-git-deleted-face :foreground "#E06C75" :weight normal)
         `(treemacs-git-ignored-face :foreground "#4B5263" :weight normal)
         `(treemacs-git-conflict-face :foreground "#FF0000" :weight normal)
-        `(treemacs-git-untracked-face :foreground "#0A7700" :weight normal))
+        `(treemacs-git-untracked-face :foreground "#0A7700" :weight normal)
+        `(treemacs-root-face :height 1.1)
+    )
+
+    (treemacs-project-follow-mode)
 )
 (map! :leader
     :desc "Treemacs"
