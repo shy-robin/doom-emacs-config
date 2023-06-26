@@ -1,7 +1,7 @@
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
-(setq user-full-name "Shy Robin"
-      user-mail-address "shy_robin@163.com")
+(setq user-full-name "" ;; 不需要设置这两项信息，否则 blamer 中的 author name 会使用此信息
+      user-mail-address "")
 (setq all-the-icons-scale-factor 1)
 
 (map! :i "C-h" "<backspace>")
@@ -321,6 +321,18 @@
 )
 
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+
+(after! blamer
+    (setq blamer-View 'overlay-right)
+    (setq blamer-author-formatter "%s")
+    (setq blamer-datetime-formatter " <%s> ")
+    (setq blamer-commit-formatter "%s")
+    (setq blamer-min-offset 40)
+    (custom-set-faces!
+        `(blamer-face :italic nil :foreground "#62686E")
+    )
+)
+(global-blamer-mode 1)
 
 (map!
     :n "C-n" #'evil-multiedit-match-and-next

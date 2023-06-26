@@ -16,4 +16,4 @@
 
 (package! org-bullets)
 
-;; (package! blamer)
+(package! blamer)
