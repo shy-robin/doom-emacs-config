@@ -584,3 +584,69 @@ CLOCK: [2023-06-26 Mon 11:19]--[2023-06-26 Mon 11:20] =>  0:01
 *** 跳转到当前计时任务
 快捷键： SPC-m-c-g
 跳转到当前计时的任务上，如果没有计时任务，则会跳转到最近一条计时任务上。
+
+* 捕获，重新整理，归档
+** 捕获
+*** 设置捕获存储目录
+#+begin_src emacs-lisp :tangle yes
+;; 默认为： ~/org/notes.org
+(setq org-default-notes-file (concat org-directory "/notes.org"))
+#+end_src
+
+*** 使用捕获
+SPC-X
+开启一个捕获进程，提供一个 narrowed 缓冲区用于编辑捕获内容。
+
+C-c C-c
+编辑完捕获内容后，确认并退出捕获进程，返回到原来的位置。
+
+C-c C-w
+编辑完捕获内容后，将笔记重新整理到其他地方。
+
+C-c C-k
+关闭捕获进程，返回上一个状态。
+
+*** 捕获模板
+可以自定义捕获的模板：
+#+begin_src emacs-lisp :tangle yes
+(setq org-capture-templates
+      '(("t" "Todo" entry (file+headline "~/org/gtd.org" "Tasks")
+         "* TODO %?\n  %i\n  %a" :prepend t)
+        ("j" "Journal" entry (file+datetree "~/org/journal.org")
+         "* %?\nEntered on %U\n  %i\n  %a")))
+#+end_src
+
+其中，
+- %a 捕获时的链接
+- %i 初始内容
+- %t %T 时间戳，日期或者精确时间
+- %u %U 和上面类似，只不过是不能被激活的时间
+- %? 光标所在位置
+- :prepend 是否将最新的捕获追加在最前面
+
+** 重新整理和复制
+当查看被捕获的数据时，可能想要重新整理或者复制一些入口到别的文件。
+这里提供了一些快捷操作：
+
+SPC-m-s-r / C-c C-w
+将当前光标所在的内容剪切到其他文件中，里面提供了一些补全的文件路径。
+如果不选择，则会使用默认的 target，可以通过变量 org-refile-targets 设置默认的 target。
+
+C-c M-w
+=org-refile-copy=
+操作类似于上面的命令，只不过不是剪切操作，而是复制操作。
+
+** 归档
+当项目里的一个子树完成之后，你可能想把它移除并停止 agenda 对它的引用，这时就需要归档。
+归档有助于保持工作文件的紧凑并且能让 agenda 的查看变得更快。
+最常用的归档操作就是将一个项目里的子树移动到另一个归档文件。
+
+SPC-m-A
+将当前光标所在的子树移动到给定的位置（这个位置可以通过 org-archive-location 设置）。
+
+生成的归档文件默认和当前文件在同一目录下，并且文件名是当前文件名加上 _archive 后缀（可以通过 org-archive-location 设置）。
+
+当然，也可以在文件的开头设置：
+#+begin_src emacs-lisp :tangle yes
+#+ARCHIVE: %s_done::
+#+end_src
