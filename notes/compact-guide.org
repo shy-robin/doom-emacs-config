@@ -9,9 +9,6 @@
 ** 标题
 使用星号加空格编写标题；
 使用 *org-bullets* 插件设置标题符号的样式；
-*** Footnotes
-**** test
-使用 =M-x: org-footnot-section= 查看变量（默认为 "Footnotes" ），以该变量为标题的内容将在导出时被忽略。
 
 * 显示隐藏
 ** Tab
@@ -845,3 +842,94 @@ org-agenda-exit
 其中 w u v 是触发命令的快捷键，todo tags tags-todo 是命令的名称，而 WAITING +boss-urgent +boss-urgent 是和 [[*匹配字符][匹配字符]] 中的布尔逻辑表达式一样的匹配操作。
 
 参数的具体用法可以查看 org-agenda-custom-commands 变量。
+
+* 标记富文本
+Org 主要是组织和搜索你的纯文本笔记。然而，它也提供了一个轻量级但强大的标记语言，用于丰富的文本格式和其他。与导出框架结合使用（见导出），你可以在 Org 中编写漂亮的文档。
+
+** 段落
+可以用至少一个空行来分割段落。如果你需要在一个段落里强制换行，可以在行的末尾加上 \\ 。
+
+如果想在一个区域内保留换行、缩进和空行，但在其他地方使用正常的格式，你可以使用以下这种结构（这种结构也可以用于格式化诗歌）：
+#+begin_verse
+ Great clouds overhead
+ Tiny black birds rise and fall
+ Snow covers Emacs
+
+    ---AlexSchroeder
+#+end_verse
+
+当从别的文档引用一个段落时，通常会将它格式化，使其具有左边距和右边距。例如：
+#+begin_quote
+Everything should be made as simple as possible,
+but not any simpler ---Albert Einstein
+#+end_quote
+
+如果你想居中一些文本，你也可以:
+#+begin_center
+Everything should be made as simple as possible, \\
+but not any simpler
+#+end_center
+
+** 强调和 Monospace
+你可以改变一些文本的样式，如下:
+*bold*
+/italic/
+_underline_
+=verbatim=
+~code~
++strike-through+
+
+** 插入 LaTex
+你也可以在 Org 里插入 LaTex 公式：
+
+The radius of the sun is R_sun = 6.96 x 10^8 m.  On the other hand,
+the radius of Alpha Centauri is R_{Alpha Centauri} = 1.28 x R_{sun}.
+
+\begin{equation}                        % arbitrary environments,
+x=\sqrt{b}                              % even tables, figures
+\end{equation}                          % etc
+
+If $a^2=b$ and \( b=2 \), then the solution must be
+either $$ a=+\sqrt{2} $$ or \[ a=-\sqrt{2} \].
+
+** Literal examples
+你可以编写一些不会受到标记的示例，这类示例是以单空格(Monospace)排版的，所有很适用于源代码和类似的例子。
+#+begin_example options
+  Some example from a text file.
+#+end_example
+
+以上示例也有简写，比如用冒号加一个空格跟上示例行，冒号前面可以有额外的空格:
+Here is an example:
+    : Some example from a text file.
+
+如果示例是一些编程代码：
+#+begin_src emacs-lisp
+(message "hello world")
+#+end_src
+
+可以使用 SPC-m-' 或者 C-c ' 打开一个支持该编程语言的缓冲区，用于编辑示例代码。
+
+** 图片
+插入一张没有描述的图片:
+: ./img/cat.jpg
+
+如果想要插入具有描述信息的图片，可以使用 [[*超链接][超链接]] 。
+
+** 创建脚注
+段落里的脚注有特定的格式，脚注由一段方括号包裹，括号里面的内容是脚注的标识符 fn: 加上脚注的序号。例如：
+
+这是一个段落[fn:1], 由许多汉字[fn:2]组成。
+
+创建脚注
+SPC-m-f / C-c C-x f
+在当前光标的位置处创建脚注，如果已经存在脚注，则跳转到脚注的位置上。
+注意，使用这个操作会自动将脚注加到一个 Footnotes 标题下，该标题下的内容默认为脚注内容，不会被导出。
+如果要修改脚注的标题，可以设置 org-footnotes-section 变量。
+
+在脚注的定义和引用之间跳转
+RET / C-c C-c
+
+*** Footnotes
+[fn:2] Character
+
+[fn:1] Paragraph
