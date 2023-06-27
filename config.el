@@ -156,6 +156,15 @@
     (setq centaur-tabs-left-edge-margin nil)
     (setq x-underline-at-descent-line t)
 
+    ;; 使用 projectile 分组，项目里的所有文件都会放到一个组里显示。
+    ;; 默认使用 centaur-tabs-buffer-groups 函数进行分组，将同类型文件分组。
+    (centaur-tabs-group-by-projectile-project)
+
+    ;; 开启 tabs 的重新排序功能。
+    (centaur-tabs-enable-buffer-reordering)
+    ;; 将跳转后的 tab 放到跳转前的 tab 的右边。
+    (setq centaur-tabs-adjust-buffer-order 'right)
+
     (map!
         :desc "Previous tab"
         :n "H" #'centaur-tabs-backward
@@ -166,13 +175,21 @@
         :desc "Move tab to right"
         :n "t l" #'centaur-tabs-move-current-tab-to-right
         :desc "New tab"
-        :n "t t" #'centaur-tabs--create-new-tab
+        :n "t n" #'centaur-tabs--create-new-tab
         :desc "Close current tab"
         :n "t w" #'kill-this-buffer
         :desc "Close other tabs"
         :n "t o" #'centaur-tabs-kill-other-buffers-in-current-group
         :desc "Ace jump tab"
-        :n "t j" #'centaur-tabs-ace-jump
+        :n "t t" #'centaur-tabs-ace-jump
+        :desc "Select the first tab of the group"
+        :n "t b" #'centaur-tabs-select-beg-tab
+        :desc "Select the last tab of the group"
+        :n "t e" #'centaur-tabs-select-end-tab
+        :desc "Go to the next tab group"
+        :n "t j" #'centaur-tabs-forward-group
+        :desc "Go to the previous tab group"
+        :n "t k" #'centaur-tabs-backward-group
     )
 )
 
