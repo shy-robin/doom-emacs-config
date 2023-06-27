@@ -1062,3 +1062,35 @@ SPC-m-e c f
 
 SPC-m-e c c
 根据 org-agenda-files 里的所有 org 文件创建一个联合的 iCalendar 文件，并命名为 org-icalendar-combined-agenda-files 设置的名称。
+
+* 发布
+Org 包含了一个发布管理系统，允许你配置一个由内部链接 org 文件的项目进行 HTML 的自动转换。
+你也可以通过配置 Org，自动上传导出的 HTML 网页以及相关的资源如图片和源码文件等，到一个 web 服务器上。
+
+详细操作可以餐口手册，这里有一个示例：
+#+begin_src emacs-lisp :tangle yes
+(setq org-publish-project-alist
+      '(("org"
+         :base-directory "~/org/"
+         :publishing-function org-html-publish-to-html
+         :publishing-directory "~/public_html"
+         :section-numbers nil
+         :with-toc nil
+         :html-head "<link rel=\"stylesheet\"
+                    href=\"../other/mystyle.css\"
+                    type=\"text/css\"/>")))
+#+end_src
+
+SPC-m-P-p
+选择一个指定的项目，发布项目里的所有文件。
+
+SPC-m-P-P
+发布一个含有当前文件的项目。
+
+SPC-m-P-f
+发布当前文件。
+
+SPC-m-P-a
+发布所有项目。
+
+Org 使用时间戳跟踪每个文件的变化。上面的四个命令通常指发布变化的文件，如果你想发布所有的文件，可以在上面的命令前面加上前缀参数。
