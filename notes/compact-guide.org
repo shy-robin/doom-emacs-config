@@ -933,3 +933,132 @@ RET / C-c C-c
 [fn:2] Character
 
 [fn:1] Paragraph
+
+* 导出
+Org 可以将文档转换并导出成多种不同的格式，导出的内容会尽可能保证文档结构和标记文本的完整性。
+
+** 导出调度器
+导出调度器是 Org 中导出的主要交互界面，该界面会展示出当前配置的导出格式以及一些支持的导出选项。
+
+快捷键: SPC-m-e / C-c C-e
+
+Org 默认会将整个 buffer 都导出。如果 buffer 的视图做了限制，比如使用 SPC-m-s-n 只展示了当前子树的内容，那么只会导出显示的这一部分数据。
+
+** 导出设置
+导出时 Org 会自动识别 buffer 中一些特殊的行，作为一些额外的信息。这些行可能被放在文档里的任何地方:
+#+begin_quote
+#+TITLE: This is Title
+#+end_quote
+
+绝大部分导出的选项会包含：
+- TITLE
+  标题
+- AUTHOR
+  作者（默认取 user-full-name）
+- DATE
+  日期或者时间戳
+- EMAIL
+  邮箱地址(默认取 user-mail-address)
+- LANGUAGE
+  语言，如 en
+
+这些选项可以通过 [[*导出调度器][导出调度器]] 中的 Insert template（快捷键：#）进行插入。
+
+** 目录
+Table of Contents
+Org 导出时会默认依据标题生成目录。
+可以通过 org-export-with-toc 变量来设置是否要导出目录，也可以通过 org-export-headline-levels 设置导出目录的层级。
+
+同样，你也可以在文件中设置一些关键字选项来配置：
+#+begin_quote
+#+OPTIONS: toc:2          (only include two levels in TOC)
+#+OPTIONS: toc:nil        (no default TOC at all)
+#+end_quote
+
+Org 默认将目录放在导出文件的第一个标题里。
+
+** 包含文件
+在导出时，可以包含其他文件的内容：
+: #+include: "../config.el" src emacs-lisp
+
+第一个参数是需要导出文件的路径;
+第二参数（可选）表示指定块的类型, 比如：example export src;
+第三个参数（可选）表示源代码的类型，用于格式化内容。
+
+你可以通过 C-c ' 直接访问上面包含的文件。
+
+** 注释
+一行由 0 个或者多个空格开始，后面接着一个 # 加空格的内容，会被当成是注释，它将不会被导出。
+: # this is comment
+:    # this is comment
+
+另外，被 #+BEGIN_COMMENT 和 #+END_COMMENT 包裹的内容也会被当成注释。
+: #+begin_comment
+: this is comment
+: #+end_comment
+
+最后，如果一个标题由 COMMENT 开头，那么这个标题里面的所有内容都会被当成是注释。
+可以在标题或者内容处使用快捷键 C-c ; 切换标题的 COMMENT 关键字。
+
+** 导出 ASCII/UTF-8
+ASCII export 只会生成包含普通 ASCII 字符的文件，这是最简单而且最直接的文本输出，它不会包含任何的 Org 标记。
+UTF-8 export 提供了额外的符合编码规范的字符和符号。
+
+SPC-m-e t a
+SPC-m-e t u
+
+** 导出 HTML
+Org 模式包含一个 HTML 导出器，具有与 XHTML 1.0 严格标准兼容的大量 HTML 格式。
+
+SPC-m-e h h
+将 org 文件导出为 html，例如，myFile.org => myFile.html
+注意，如果对同一个文件进行多次导出操作，新生成的导出文件会直接覆盖之前的导出文件。
+
+SPC-m-e h o
+将 org 文件导出为 html 并用浏览器打开。
+
+注意，HTML 导出器后端会将 < 和 > 转义成 &lt 和 &gt，如果想要直接插入 html 标签并渲染出来，可以将 html 代码用 ~@@html:~ 和 ~@@~ 包裹。
+: @@html:<span style="color: red;">hello</span>@@
+: @@html:<b>@@bold text@@html:</b>@@
+
+对于更大的原生 HTML 代码块，可以使用这些 HTML 导出代码块:
+: #+HTML: Literal HTML code for export
+
+: #+BEGIN_EXPORT html
+: <div style="width:20px;height:20px;background-color:red"></div>
+: <div style="width:20px;height:20px;background-color:green"></div>
+: #+END_EXPORT
+
+** 导出 LaTeX
+LaTeX 导出器后端可以处理复杂的文档、纳入标准或定制的 LaTeX 文档类，使用替代的 LaTeX 引擎生成文件，并生成带有索引、书目和目录的完全链接的 PDF 文件，用于交互式在线浏览或高质量的印刷出版。
+
+默认情况下，LaTeX 输出会使用 =article= 类，你可以通过在文件中加一个选项如
+~#+LATEX_CLASS: myclass~ 来改变这一行为。这里用到的 myclass 必须在 org-latex-classes 变量中。
+
+SPC-m-e l l
+将 org 文件导出成一个 .tex 后缀的 LaTeX 文件。
+
+SPC-m-e l p
+将 org 文件导出成一个 .pdf 后缀的 LaTeX 文件。
+
+SPC-m-e l o
+将 org 文件导出成一个 .pdf 后缀的 LaTeX 文件并用默认的 PDF 查看器打开。
+
+有三种方式可以在 org 文件中插入 LaTeX
+1. 使用 @ 符号：
+   : Code embedded in-line @@latex:any arbitrary LaTeX code@@ in a paragraph.
+2. 插入关键字：
+   : #+LATEX: any arbitrary LaTeX code
+3. 插入导出代码块
+   : #+BEGIN_EXPORT latex
+   : any arbitrary LaTeX code
+   : #+END_EXPORT
+
+** 导出成 iCalendar
+Org 模式的互操作性成功的很大一部分是它能够轻松地导出或从外部应用程序导入。iCalendar 导出后端从 Org 文件中获取日历数据并导出为标准的 iCalendar 格式。
+
+SPC-m-e c f
+将 org 文件导出成一个 .ics 后缀的 iCalendar 文件。
+
+SPC-m-e c c
+根据 org-agenda-files 里的所有 org 文件创建一个联合的 iCalendar 文件，并命名为 org-icalendar-combined-agenda-files 设置的名称。
