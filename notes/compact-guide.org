@@ -650,3 +650,198 @@ SPC-m-A
 #+begin_src emacs-lisp :tangle yes
 #+ARCHIVE: %s_done::
 #+end_src
+* 议程视图
+一个子项可能是有 TODO、时间戳、标签等，这些信息分散在不同文件的不同位置中，查阅这些信息有时候会变得比较困难。
+议程视图（agenda views）提供了对这些特殊信息的概览。
+这些特殊信息会被提取在一个特殊的 agenda buffer 里，这个 buffer 是只读的，但是提供了一些命令可以用于远程修改相关文件的信息，比如截止日期或者排定日期。
+
+** 议程文件
+议程视图会收集所有议程文件（agenda files）的信息，可以通过 org-agenda-files 变量查看所有包含的议程文件，不在该列表的文件将不会被收集数据。
+
+C-c [
+将当前文件加入到 agenda files 中，文件会被移动到这个 agenda files 列表的前面，如果文件存在，则会将它移动到列表的前面。
+
+C-c ]
+将当前文件从 agenda files 中移除。
+
+C-'
+循环访问 agenda files 中的文件。
+
+** 议程调度
+SPC-o-A
+唤起议程调度。
+
+在议程调度中，提供了一些默认的命令：
+a: 创建一个类似日历的议程视图；
+t: 创建一个包含 TODO 关键字的议程视图；
+T: 创建一个包含其他关键字（如 DONE TODO）的议程视图；
+m: 创建一个符合匹配表达式（匹配标签或者属性）的议程视图；
+M: 类似于 m，但只作用于 TODO 事项；
+s: 创建一个符合给定正则表达式的议程视图；
+S: 类似于 s，但只作用于 TODO 事项。
+
+** 周/天议程
+快捷键： SPC-o-A a
+将会从 org-agenda-files 中获取所有设置了时间戳的信息，并以周维度显示出来。
+
+org-mode 可以和 emacs 的预约通知交互，通过 org-agenda-to-appt 可以将 agenda 信息添加到预约通知中。
+
+** 全局的待办列表
+筛选出 org-agenda-files 中的所有代表事项。
+在筛选窗口中可以使用数字加 r 键筛选不同类型的待办。同时，可以直接操作待办的状态，改变后的状态会直接在源文件中生效。
+
+快捷键： SPC-o-A t
+将会从 org-agenda-files 中获取所有的待办事项。
+
+快捷键： SPC-o-A T
+和上面的命令类似，只不过可以筛选特定状态的待办事项。
+
+** 匹配标签和属性
+如果一个标题设置了标签或者属性，你也可以根据这些元数据进行筛选。
+
+SPC-o-A m
+用于筛选符合表达式的标题。
+比如， +work+urgent-withboss 或者 work|home 这类表达式，用于筛选具有符合这类特定条件标签的标题。
+
+SPC-o-A M
+和上面的命令类似，只不过只能筛选是待办事项的标题。
+
+搜索的字符串可以包含一些运算符，比如用 & 代表 AND ， 用 | 代表 OR。也可以通过 =name=value= 这种形式用 = 筛选出符合属性的标题。
+以下是一些示例：
++work-boss
+选择有 work 标签的标题，但除去 boss 标签的标题。
+
+work|laptop
+选择有 work 或者 laptop 标签的标题。
+
+work|laptop+night
+选择有 work 或者有 laptop加night 的标题。
+
+** 匹配字符
+用于搜索含有特定字符的标题。
+
+快捷键： SPC-o-A s
+
+搜索的字符同样可以使用表达式，例如： +computer +wifi -ethernet -{8\.11[bg]}
+表示标题需要包含 computer 和 wifi，但不能有 ethernet，同时也不能有 8.11b 或 8.11g
+
+需要注意的是，这条命令不仅会搜索 org-agenda-files 中的文件，也会搜索 org-agenda-text-search-extra-files 中的文件。
+
+** 议程缓冲区的命令
+agenda buffer 中的入口会链接到关联的 org 文件或者 diary 文件中。
+你不可以直接编辑 agenda buffer 本身，但 org agenda 提供了一些命令可以用于展示或跳转到入口的源文件位置上。
+
+*** 移动
+j / C-j / C-n
+向下移动一条记录。
+
+k / C-k / C-p
+向上移动一条记录。
+
+*** 查看或跳转到 org 文件
+TAB
+向右打开一个半屏，并展示源文件的内容。
+
+RET
+直接在另一个窗口中展示源文件的内容。
+
+*** 切换视图
+o / SPC-w-o
+删除其他的分屏，只保留当前的窗口。
+
+z d
+切换到一天的视图。
+
+z w
+切换到一周的视图。
+
+z t
+切换到两周的视图。
+
+z m
+切换到一个月的视图。
+
+z y
+切换到一年的视图。
+
+z SPC
+切换到默认的视图（默认十天）。
+
+.
+跳转到今天。
+
+g d
+跳转到选中的日期。
+
+r
+重新加载 agenda buffer，当 org 文件的内容发生变化时，需要执行此操作。
+
+C-x C-s
+保存所有对 org 文件的修改。
+
+*** 远程编辑
+t / SPC-m-t
+改变事项的待办状态。
+
+d d
+删除当前的事项。
+
+SPC-m-r / C-c C-w
+重新整理（refile）当前的事项。
+
+d a
+归档（archive）当前的事项，使用在 org-archive-default-command 变量中设置的默认归档命令。
+
+d A
+归档（archive）当前的事项。
+
+SPC-m-d-s / C-c C-s
+设置事项的排定时间。
+
+SPC-m-d-d / C-c C-d
+设置事项的截止时间。
+
+S-h / S-arrow-left
+将事项的时间往前移动一天，需要按 r 重新加载 agenda buffer。
+
+S-l / S-arrow-right
+将事项的时间往后移动一天，需要按 r 重新加载 agenda buffer。
+
+I
+事项开始计时（注意开始计时之后需要 C-x C-s 保存对 org 文件的更改，否则结束计时后会直接覆盖开始计时的修改）。
+
+O
+事项结束计时（同样需要注意保存对 org 文件的修改）。
+
+c c
+取消当前计时。
+
+c g
+移动到当前计时的事项上。
+
+c r
+切换到计时报告模式。
+
+*** 退出议程
+Z Z
+org-agenda-quit
+退出议程，移除 agenda buffer。
+
+Z Q
+org-agenda-exit
+退出议程，移除 agenda buffer 和由 agenda 创建的所有 org buffer。
+
+** 自定义议程视图
+可以通过设置 org-agenda-custom-commands 变量自定义 agenda views。
+例如:
+#+begin_src emacs-lisp :tangle yes
+(setq org-agenda-custom-commands
+      '(("w" todo "WAITING")
+        ("u" tags "+boss-urgent")
+        ("v" tags-todo "+boss-urgent")))
+#+end_src
+
+以上示例中，可以在议程调度菜单（通过 SPC-o-A 触发）中新建三条命令。
+其中 w u v 是触发命令的快捷键，todo tags tags-todo 是命令的名称，而 WAITING +boss-urgent +boss-urgent 是和 [[*匹配字符][匹配字符]] 中的布尔逻辑表达式一样的匹配操作。
+
+参数的具体用法可以查看 org-agenda-custom-commands 变量。
