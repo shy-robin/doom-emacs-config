@@ -1094,3 +1094,88 @@ SPC-m-P-a
 发布所有项目。
 
 Org 使用时间戳跟踪每个文件的变化。上面的四个命令通常指发布变化的文件，如果你想发布所有的文件，可以在上面的命令前面加上前缀参数。
+
+* 源代码
+Org 提供了一些源代码的功能，包括在原生的 major mode 中编辑代码块、执行代码块、转换代码块和导出代码块以及代码的执行结果。
+一个代码块符合以下结构：
+: #+NAME: <name>
+: #+BEGIN_SRC <language> <switches> <header arguments>
+:   <body>
+: #+END_SRC
+
+其中：
+- name 是代码块的名称，应该是唯一的。
+- language 指定了代码块用的编程语言，例如 emacs-lisp, python, shell, R 等等。
+- switches 可以用于控制代码的导出。
+- header arguments 可以用于控制代码块行为的许多方面。
+- body 是源代码。
+
+使用 C-c ' 可以编辑当前代码块，它会在一个可以识别当前语言的 buffer 中打开代码块，可以做文本编辑。再次使用 C-c ' 可以关闭编辑 buffer，并返回原来的 Org buffer 中。
+
+** 使用头参数
+一个头参数由一个冒号加上参数的小写名称组成。
+头参数可以通过多种方式进行设置，在头参数出现重叠或者冲突的情况下，Org 会优先使用本地的配置。
+
+*** 系统头参数
+即通过 org-babel-default-header-args 变量设置的头参数，或者一个指定的语言：org-babel-default-header-args:LANG。
+
+*** 属性头参数
+可以通过 header-args 属性（[[*属性][属性]]）设置头参数，或者 header-args:LANG。
+属性头参数作用于当前子树下的所有内容。
+
+*** 代码块头参数
+头参数大部分都设置在代码块这个层级上，在 BEGIN_SRC 这一行:
+: #+NAME: factorial
+: #+BEGIN_SRC haskell :results silent :exports code :var n=0
+:   fac 0 = 1
+:   fac n = n * fac (n-1)
+: #+END_SRC
+代码块的标题参数可以跨越多行，每行使用 HEADER 关键字。
+
+** 执行代码块
+使用 C-c C-c 可以执行当前代码块并将结果插入到 Org 文档里。
+默认情况下，只能执行 emacs-lisp 的代码块，如果要执行其他语言的代码块，可以参考手册。
+以下示例是一段 emacs-lisp 的代码块和它的执行结果：
+: #+begin_src emacs-lisp :tangle yes
+: (+ 1 2 3 4)
+: #+end_src
+:
+: #+RESULTS:
+: : 10
+
+以下语法用于向代码块中传递参数：
+: :var NAME=ASSIGN
+其中，NAME 是代码块中会用到的变量名，而 ASSIGN 是赋予变量的值。
+
+: #+begin_src emacs-lisp :var msg="hello world" :tangle yes
+: (message msg)
+: #+end_src
+:
+: #+RESULTS:
+: : hello world
+
+** 执行结果
+Org 如果控制代码块的执行结果，取决于它的头参数，其中主要的参数是 results，它控制了 collection，type，format 和代码块执行结果的控制。
+
+- Collection
+  指定代码块的执行结果该如何被收集，可选值有：output 和 value (默认)。
+- Type
+  指定代码块执行结果的期望类型，可选值有：table, list, scalar 和 file，如果没有提供这个头参数，Org 会自动判断。
+- Format
+  指定如何格式化执行结果，可选值有：code, drawer, html, latex, link 和 raw。
+- Handling
+  指定当执行结果格式化完成后如何插入到文档中，可选值有：silent, replace（默认），append, prepend。
+
+当代码块的执行结果是 file 时，例如：图形、图表或者图像，可以接受一个 :file FILENAME 的头参数，执行结果将会保存到一个名为 FILENAME 的文件中，并且会生成一个链接插入到 buffer 中。
+
+** 导出代码块
+在导出文件时，可以指定是否导出代码块，或者是否导出代码块的执行结果，或者都不导出，或者都导出。
+通过设置 exports 头参数，可选值有： code, results, both 和 none。
+
+:  #+begin_src emacs-lisp :var msg="hello world" :exports both
+:  (message msg)
+:  #+end_src
+
+** 提取源代码
+使用 C-c C-v t (org-babel-tangle) 可以提取当前 buffer 中代码块的所有代码，并将所有同类型的代码保存到一个特定格式的文件中。
+注意，只有带上头参数 tangle 的代码块才能被提取出来。
