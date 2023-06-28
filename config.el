@@ -216,7 +216,7 @@
     :n "g r" #'lsp-ui-peek-find-references
 )
 
-(setq +lsp-company-backends '(:separate company-yasnippet company-capf))
+(setq +lsp-company-backends '(:separate company-capf company-yasnippet))
 (setq lsp-lens-enable nil)
 ;; (setq lsp-eldoc-enable-hover nil)
 
