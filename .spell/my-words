@@ -1,12 +1,14 @@
-personal_ws-1.1 en 14 
+personal_ws-1.1 en 16 
 Config
 TODO
 avy
 configs
 emacs
+eslint
 flycheck
 js
 lsp
+mcn
 modeline
 pinia
 test
