@@ -369,3 +369,13 @@
 (setq web-mode-part-padding 0)
 (setq web-mode-style-padding 0)
 (setq web-mode-script-padding 0)
+
+(after! evil
+  ;; 解决当标签内部元素为空时，cit 直接删除整个标签的问题。
+  ;; see： https://github.com/emacs-evil/evil/issues/990
+  (defun evil-select-xml-tag (beg end type &optional count inclusive)
+    (cond
+     ((and (not inclusive) (= (abs (or count 1)) 1))
+      (evil-select-block #'evil-up-xml-tag beg end type count nil t))
+     (t
+      (evil-select-block #'evil-up-xml-tag beg end type count inclusive)))))
