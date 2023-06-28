@@ -247,7 +247,9 @@
 (setq ispell-extra-args '("--sug-mode=ultra" "--lang=en_US" "--run-together" "--run-together-limit=16" "--camel-case"))
 
 (after! ispell
-  (setq ispell-personal-dictionary "~/.config/doom/.spell/my-words"))
+  (setq ispell-personal-dictionary "~/.config/doom/.spell/my-words")
+  (map! :leader :n "b f" 'flyspell-buffer)
+)
 
 ;; projectile discover projects in search path
 (setq projectile-project-search-path '("~/Projects/"))
