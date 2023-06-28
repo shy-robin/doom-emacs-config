@@ -321,6 +321,8 @@
 
 (setq +lsp-company-backends '(:separate company-capf company-yasnippet))
 (setq lsp-lens-enable nil)
+(setq lsp-ui-sideline-show-diagnostics nil)
+(setq lsp-ui-sideline-show-symbol nil)
 ;; (setq lsp-eldoc-enable-hover nil)
 #+end_src
 
