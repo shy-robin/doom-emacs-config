@@ -560,3 +560,9 @@
      (t
       (evil-select-block #'evil-up-xml-tag beg end type count inclusive)))))
 #+end_src
+
+** yasnippet
+#+begin_src emacs-lisp :tangle yes
+;; 解决补 emmet 补全后无法 undo 的问题。
+(setq yas-snippet-revival nil)
+#+end_src

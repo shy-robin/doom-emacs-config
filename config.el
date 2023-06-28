@@ -383,3 +383,6 @@
       (evil-select-block #'evil-up-xml-tag beg end type count nil t))
      (t
       (evil-select-block #'evil-up-xml-tag beg end type count inclusive)))))
+
+;; 解决补 emmet 补全后无法 undo 的问题。
+(setq yas-snippet-revival nil)
