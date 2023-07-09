@@ -158,18 +158,8 @@
 #+end_src
 
 ** org-mode
-#+begin_src emacs-lisp :tangle yes
-;; If you use `org' and don't want your org files in the default location below,
-;; change `org-directory'. It must be set before org loads!
-
-;; 外观 （https://howardism.org/Technical/Emacs/orgmode-wordprocessor.html）
-;; 隐藏强调文本的标记
-(setq org-hide-emphasis-markers t)
-;; 将列表下的以 - 或 * 加上空格开头的列表项前的符号换成特定样式
-(font-lock-add-keywords 'org-mode
-                        '(("^ +\\([-*]\\) "
-                           (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
-;; 将不同层级的标题设置不同的字体和字号
+将不同层级的标题设置不同的字体和字号:
+#+begin_src emacs-lisp :tangle no
 (let* ((variable-tuple (cond ((x-list-fonts "Source Sans Pro") '(:font "Source Sans Pro"))
                              ((x-list-fonts "Lucida Grande")   '(:font "Lucida Grande"))
                              ((x-list-fonts "Verdana")         '(:font "Verdana"))
@@ -188,15 +178,47 @@
                           `(org-level-2 ((t (,@headline ,@variable-tuple :height 1.5))))
                           `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.75))))
                           `(org-document-title ((t (,@headline ,@variable-tuple :height 1.5 :underline nil))))))
+#+end_src
 
-(setq org-directory "~/org/")
+外观 （https://howardism.org/Technical/Emacs/orgmode-wordprocessor.html）
+隐藏强调文本的标记:
+#+begin_src emacs-lisp :tangle yes
+(setq org-hide-emphasis-markers t)
+#+end_src
+
+将列表下的以 - 或 * 加上空格开头的列表项前的符号换成特定样式:
+#+begin_src emacs-lisp :tangle yes
+(font-lock-add-keywords 'org-mode
+                        '(("^ +\\([-*]\\) "
+                           (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+#+end_src
+
+修改 todo 配置:
+#+begin_src emacs-lisp :tangle yes
 (setq org-log-done 'note)
 (setq org-log-into-drawer t)
 (setq org-todo-keywords
       '((sequence "TODO(t!)" "|" "DONE(d@)")
-        (sequence "REPORT(r!)" "BUG(b!)" "KNOWNCAUSE(k!)" "|" "FIXED(f@)")))
-;; (setq org-tag-alist '(("shy1" . ?s) ("robin1" . ?r)))
+        (sequence "REPORT(r!)" "BUG(b!)" "KNOWNCAUSE(k!)" "|" "FIXED(f@)")
+        (sequence "|" "CANCELED(c!)")
+        ))
+#+end_src
 
+修改时间显示格式：
+#+begin_src emacs-lisp :tangle yes
+(setq-default org-display-custom-times t)
+(setq org-time-stamp-custom-formats '("<%Y-%m-%d %a>" . "<%Y-%m-%d %a %H:%M>"))
+#+end_src
+
+捕获文件的位置：
+#+begin_src emacs-lisp :tangle yes
+(setq +org-capture-todo-file "~/org/captures/todo.org")
+(setq +org-capture-notes-file "~/org/captures/notes.org")
+(setq +org-capture-journal-file "~/org/captures/journal.org")
+#+end_src
+
+快捷键:
+#+begin_src emacs-lisp :tangle yes
 (map!
     :map org-mode-map
     :n "g l" #'org-down-element
@@ -206,6 +228,11 @@
     :n "g J" #'org-forward-element
     :n "g K" #'org-backward-element
 )
+#+end_src
+
+org 文件默认目录：
+#+begin_src emacs-lisp :tangle yes
+(setq org-directory "~/org/")
 #+end_src
 
 ** key-chord
