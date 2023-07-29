@@ -620,3 +620,48 @@ org 文件默认目录：
 ;; 解决补 emmet 补全后无法 undo 的问题。
 (setq yas-snippet-revival nil)
 #+end_src
+
+** lsp-bridge
+#+begin_src emacs-lisp :tangle yes
+(add-to-list 'load-path "~/Projects/lsp-bridge")
+
+(require 'yasnippet)
+(yas-global-mode 1)
+
+(require 'lsp-bridge)
+(global-lsp-bridge-mode)
+
+(after! lsp-bridge
+  (map! :map lsp-bridge-mode-map
+        :i "C-j" #'acm-select-next
+        :i "C-k" #'acm-select-prev
+        :i "C-l" #'acm-select-last
+        :i "C-f" #'acm-select-first
+        :i "C-n" #'acm-select-next-page
+        :i "C-p" #'acm-select-prev-page
+        :i "<tab>" #'acm-complete
+        :i "C-d" #'acm-doc-scroll-up
+        :i "C-u" #'acm-doc-scroll-down
+        ;; :i "C-<space>" #'lsp-bridge-popup-complete-menu
+
+        :n "g d" #'lsp-bridge-find-def
+        :n "g b" #'lsp-bridge-find-def-return
+        :n "g i" #'lsp-bridge-find-impl
+        :n "g I" #'lsp-bridge-find-impl-other-window
+        :n "g t" #'lsp-bridge-find-type-def
+        :n "g T" #'lsp-bridge-find-type-def-other-window
+        :n "g r" #'lsp-bridge-find-references
+        :n "g h" #'lsp-bridge-popup-documentation
+        :n "C-j" #'lsp-bridge-popup-documentation-scroll-up
+        :n "C-k" #'lsp-bridge-popup-documentation-scroll-down
+        :n "g j" #'lsp-bridge-diagnostic-jump-next
+        :n "g k" #'lsp-bridge-diagnostic-jump-prev
+        :n "g l" #'lsp-bridge-diagnostic-list
+        :n "g p" #'lsp-bridge-peek
+
+        :leader
+        :n "r n" #'lsp-bridge-rename
+        :n "c a" #'lsp-bridge-code-action
+  )
+)
+#+end_src
