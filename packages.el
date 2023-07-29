@@ -17,3 +17,7 @@
 (package! org-bullets)
 
 (package! blamer)
+
+;; 使用 lsp-bridge 需要禁用这些补全插件
+(package! lsp-mode :disable t :ignore t)
+(package! company :disable t :ignore t)
