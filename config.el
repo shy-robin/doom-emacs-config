@@ -418,7 +418,7 @@
         :i "<tab>" #'acm-complete
         :i "C-d" #'acm-doc-scroll-up
         :i "C-u" #'acm-doc-scroll-down
-        ;; :i "C-<space>" #'lsp-bridge-popup-complete-menu
+        :i "C-SPC" #'lsp-bridge-popup-complete-menu
 
         :n "g d" #'lsp-bridge-find-def
         :n "g b" #'lsp-bridge-find-def-return
